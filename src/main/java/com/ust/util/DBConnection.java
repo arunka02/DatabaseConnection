@@ -1,3 +1,5 @@
+package com.ust.util;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -6,13 +8,17 @@ import java.sql.SQLException;
 
 public class DBConnection {
 
+    private DBConnection() {
+        super();
+    }
+
     public static Connection getConnection() {
 
         Connection con = null;
         try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
+            DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
             con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "HR", "HR");
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return con;
